@@ -32,7 +32,7 @@ jobs:
     - name: Remove faulty VS2019 16.5
       shell: bash
       run: |
-        rm -rf "${ProgramFiles(x86)}\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.25.28610"
+        rm -rf "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.25.28610"
 
     - name: Install vcpkg ports
       shell: bash
