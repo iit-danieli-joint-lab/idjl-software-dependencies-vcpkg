@@ -19,13 +19,7 @@ jobs:
       shell: bash 
       run: |
         df -h
-    
-    # Workaround for https://github.com/actions/virtual-environments/issues/605
-    - name: Remove faulty VS2019 16.5
-      shell: powershell
-      run: |
-        Remove-Item -Path "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.25.28610" -Force -Recurse
-    
+
     - name: Download custom vcpkg and additional ports 
       shell: bash
       run: |
@@ -33,6 +27,13 @@ jobs:
         git clone -b 2020.01 https://github.com/microsoft/vcpkg  C:/idjl/vcpkg
         C:/idjl/vcpkg/bootstrap-vcpkg.sh
         git clone https://github.com/robotology-dependencies/robotology-vcpkg-binary-ports C:/robotology-vcpkg-binary-ports
+        
+    # Workaround for https://github.com/actions/virtual-environments/issues/605
+    - name: Remove faulty VS2019 16.5
+      shell: powershell
+      run: |
+        Remove-Item -Path "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019\Enterprise\VC\Tools\MSVC\14.25.28610" -Force -Recurse
+
     - name: Install vcpkg ports
       shell: bash
       run: |
