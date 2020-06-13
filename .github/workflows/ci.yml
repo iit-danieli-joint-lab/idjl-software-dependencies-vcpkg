@@ -171,6 +171,14 @@ jobs:
       run: |
         cd C:/idjl-deps/gazebo
         colcon build --merge-install --cmake-args -G "Visual Studio 16 2019" -A x64 -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=C:/idjl-deps/vcpkg/scripts/buildsystems/vcpkg.cmake -DBUILD_TESTING:BOOL=OFF        
+    
+    - name: On failure upload build logs for debug
+      if: ${{ failure() }}
+      uses: actions/upload-artifact@v1
+      with:
+        name: vcpkg-gazebo-build-logs
+        path: C:/idjl-deps/gazebo/log
+    
     # Remove temporary files
     - name: Cleanup colcon temporary directories
       shell: cmd 
