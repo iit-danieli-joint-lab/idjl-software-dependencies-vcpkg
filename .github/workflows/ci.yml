@@ -30,25 +30,19 @@ jobs:
         choco install -y wget
         mkdir C:/idjl-deps
         cd C:/idjl-deps
-        # Download a custom vcpkg 2020.01 that already contains ace pre-compiled, as a workaround for https://github.com/actions/virtual-environments/issues/605
-        wget https://github.com/iit-danieli-joint-lab/idjl-software-dependencies-vcpkg/releases/download/temporary-storage/idjl-vcpkg-2020.01-ace.zip
-        7z x idjl-vcpkg-2020.01-ace.zip
-        rm idjl-vcpkg-2020.01-ace.zip
-        cd C:/idjl-deps/vcpkg
-        # Update vcpkg to a newer commit
-        git fetch
-        # vcpkg commit of 2020/06/12
-        git checkout 250e35a961f6faea691e2266613e671a61bb3ab6
+        git clone https://github.com/Microsoft/vcpkg
+        cd vcpkg
+        git checkout 70f192e073dd9e5ed503fc1e86d8a54e2fbaceb4
         C:/idjl-deps/vcpkg/bootstrap-vcpkg.sh
-        git clone https://github.com/robotology-dependencies/robotology-vcpkg-binary-ports C:/idjl-deps/robotology-vcpkg-binary-ports
-        cd C:/idjl-deps/robotology-vcpkg-binary-ports
-        git checkout v0.1.0        
+        git clone https://github.com/robotology-dependencies/robotology-vcpkg-ports C:/idjl-deps/robotology-vcpkg-ports
+        cd C:/idjl-deps/robotology-vcpkg-ports
+        git checkout v0.1.1
         
     - name: Install vcpkg ports
       shell: bash
       run: |
         # TinyXML is not installed as a workaround for https://github.com/robotology/ycm/pull/296
-        C:/idjl-deps/vcpkg/vcpkg.exe --overlay-ports=C:/idjl-deps/robotology-vcpkg-binary-ports install --triplet x64-windows assimp eigen3 libxml2 eigen3 matio ensenso-binary ipopt-binary libpcap protobuf asio ace pcl yaml-cpp
+        C:/idjl-deps/vcpkg/vcpkg.exe --overlay-ports=C:/idjl-deps/robotology-vcpkg-ports install --triplet x64-windows ace assimp eigen3 libxml2 eigen3 matio ensenso-binary ipopt-binary libpcap protobuf asio pcl yaml-cpp
 
     # Remove temporary files https://github.com/Microsoft/vcpkg/blob/master/docs/about/faq.md#how-can-i-remove-temporary-files
     # For some reason doing using git bash to do rm -rf fails for icu's port buildtrees, probably for the use of msys2 
@@ -117,8 +111,7 @@ jobs:
       shell: bash
       run: |
         # Install dependencies for gazebo11 and related ignition dependencies (listed in https://github.com/ignition-tooling/gazebodistro/blob/master/gazebo11.yaml)         
-        # gts is not present due to https://github.com/microsoft/vcpkg/issues/10422, and its dependency glib is present instead
-        C:/idjl-deps/vcpkg/vcpkg.exe --overlay-ports=C:/idjl-deps/robotology-vcpkg-binary-ports install --triplet x64-windows boost-asio boost-any boost-date-time boost-filesystem boost-format boost-interprocess boost-iostreams boost-program-options boost-property-tree boost-regex boost-smart-ptr boost-system boost-thread boost-variant boost-uuid bullet3 cppzmq curl dlfcn-win32 freeimage glib libyaml libzip jsoncpp ogre protobuf qt5-base[latest] qwt sqlite3[core,tool] tbb tinyxml tinyxml2 urdfdom zeromq
+        C:/idjl-deps/vcpkg/vcpkg.exe --overlay-ports=C:/idjl-deps/robotology-vcpkg-ports install --triplet x64-windows boost-asio boost-any boost-date-time boost-filesystem boost-format boost-interprocess boost-iostreams boost-program-options boost-property-tree boost-regex boost-smart-ptr boost-system boost-thread boost-variant boost-uuid bullet3 cppzmq curl dlfcn-win32 freeimage gts libyaml libzip jsoncpp ogre protobuf qt5-base[latest] qwt sqlite3[core,tool] tbb tinyxml tinyxml2 urdfdom zeromq
         
     # Remove temporary files https://github.com/Microsoft/vcpkg/blob/master/docs/about/faq.md#how-can-i-remove-temporary-files
     # For some reason doing using git bash to do rm -rf fails for icu's port buildtrees, probably for the use of msys2 
