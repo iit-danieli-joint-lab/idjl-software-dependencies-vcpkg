@@ -34,7 +34,7 @@ jobs:
         cd vcpkg
         git checkout 70f192e073dd9e5ed503fc1e86d8a54e2fbaceb4
         C:/idjl-deps/vcpkg/bootstrap-vcpkg.sh
-        git clone https://github.com/robotology-dependencies/robotology-vcpkg-ports C:/idjl-deps/robotology-vcpkg-ports
+        git clone https://github.com/robotology/robotology-vcpkg-ports C:/idjl-deps/robotology-vcpkg-ports
         cd C:/idjl-deps/robotology-vcpkg-ports
         git checkout v0.1.1
         
