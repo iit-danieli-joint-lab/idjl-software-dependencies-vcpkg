@@ -54,6 +54,13 @@ jobs:
         RMDIR /Q/S C:\idjl-deps\vcpkg\packages
         RMDIR /Q/S C:\idjl-deps\vcpkg\downloads
 
+    # Remove .pdb (i.e. debug symbols) files to save space
+    - name: Remove .pdb
+      shell: bash
+      run: |
+        rm -rf /c/idjl-deps/vcpkg/installed/x64-windows/bin/*.pdb
+        rm -rf /c/idjl-deps/vcpkg/installed/x64-windows/debug/bin/*.pdb
+
     - name: Install setup scripts    
       shell: bash
       run: |
@@ -122,7 +129,14 @@ jobs:
         RMDIR /Q/S C:\idjl-deps\vcpkg\buildtrees
         RMDIR /Q/S C:\idjl-deps\vcpkg\packages
         RMDIR /Q/S C:\idjl-deps\vcpkg\downloads
-        
+
+    # Remove .pdb (i.e. debug symbols) files to save space
+    - name: Remove .pdb
+      shell: bash
+      run: |
+        rm -rf /c/idjl-deps/vcpkg/installed/x64-windows/bin/*.pdb
+        rm -rf /c/idjl-deps/vcpkg/installed/x64-windows/debug/bin/*.pdb
+   
     - uses: actions/upload-artifact@v1
       with:
         name: vcpkg-idjl-with-gazebo-deps
