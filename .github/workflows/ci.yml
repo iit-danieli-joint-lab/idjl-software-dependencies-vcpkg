@@ -32,7 +32,7 @@ jobs:
         cd C:/idjl-deps
         git clone https://github.com/Microsoft/vcpkg
         cd vcpkg
-        git checkout ac2ddd5f059b56b6e0b9fc0c73bd4feccad539ff
+        git checkout 2022.07.25
         C:/idjl-deps/vcpkg/bootstrap-vcpkg.sh
         git clone https://github.com/robotology/robotology-vcpkg-ports C:/idjl-deps/robotology-vcpkg-ports
         cd C:/idjl-deps/robotology-vcpkg-ports
