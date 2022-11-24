@@ -36,7 +36,7 @@ jobs:
         C:/idjl-deps/vcpkg/bootstrap-vcpkg.sh
         git clone https://github.com/robotology/robotology-vcpkg-ports C:/idjl-deps/robotology-vcpkg-ports
         cd C:/idjl-deps/robotology-vcpkg-ports
-        git checkout v0.1.1
+        git checkout v0.2.0
         
     - name: Install vcpkg ports
       shell: bash
